@@ -1,0 +1,44 @@
+<template>
+    <lightning-card title="Accounts">
+        <div class="slds-scrollable_x">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col">Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Industry</th>
+                        <th scope="col">Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template if:true={accounts}>
+                        <template for:each={accounts} for:item="account">
+                            <tr key={account.Id}>
+                                <th scope="row">
+                                    <a href="javascript:void(0);" onclick={handleAccountClick} data-id={account.Id}>
+                                        {account.Name}
+                                    </a>
+                                </th>
+                                <td>{account.Phone}</td>
+                                <td>{account.Type}</td>
+                                <td>{account.Industry}</td>
+                                <td>{account.Rating}</td>
+                            </tr>
+                        </template>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="slds-m-top_medium">
+            <lightning-button label="Previous" onclick={handlePrevious} disabled={isFirstPage}></lightning-button>
+            <lightning-button label="Next" class="slds-m-left_small" onclick={handleNext} disabled={isLastPage}></lightning-button>
+        </div>
+
+        <template if:true={selectedAccountId}>
+            <hr class="slds-m-vertical_medium" />
+            <c-contact-list account-id={selectedAccountId}></c-contact-list>
+        </template>
+    </lightning-card>
+</template>
